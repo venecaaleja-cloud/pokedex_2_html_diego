@@ -1,0 +1,944 @@
+/* ======================================= 
+   IMPORTACIÓN DE FUENTE EXTERNA
+   ======================================= */
+/* Importa la fuente Montserrat desde Google Fonts con 3 pesos: 300 (light), 500 (medium), 700 (bold) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+/* ======================================= 
+   VARIABLES GLOBALES (Custom Properties)
+   ======================================= */
+/* :root es el elemento raíz del documento. Aquí se definen variables reutilizables.
+   Se acceden con var(--nombre-variable). Esto facilita cambiar colores en todo el sitio. */
+:root {
+    /* Colores oficiales de cada tipo de Pokémon */
+    --color-fire: #ff7402;
+    /* Fuego */
+    --color-grass: #9bcc50;
+    /* Planta */
+    --color-steel: #9eb7b8;
+    /* Acero */
+    --color-water: #4592c4;
+    /* Agua */
+    --color-psychic: #f366b9;
+    /* Psíquico */
+    --color-ground: #ab9842;
+    /* Tierra */
+    --color-ice: #51c4e7;
+    /* Hielo */
+    --color-flying: #3dc7ef;
+    /* Volador */
+    --color-ghost: #4d5b64;
+    /* Fantasma */
+    --color-normal: #a4acaf;
+    /* Normal */
+    --color-poison: #7e0058;
+    /* Veneno */
+    --color-rock: #a38c21;
+    /* Roca */
+    --color-fighting: #d56723;
+    /* Lucha */
+    --color-dark: #707070;
+    /* Siniestro */
+    --color-bug: #729f3f;
+    /* Bicho */
+    --color-dragon: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+    /* Dragón: degradado especial */
+    --color-electric: #bba909;
+    /* Eléctrico */
+    --color-fairy: #fdb9e9;
+    /* Hada */
+    --color-shadow: #7b62a3;
+    /* Sombra/Fantasma */
+    --color-unknow: #757575;
+    /* Desconocido */
+
+    /* Colores principales de la marca (para botones y elementos destacados) */
+    --color-primary: #006d77;
+    /* Color principal (verde azulado oscuro) */
+    --color-primary-hover: #83c5be;
+    /* Color al pasar el mouse (verde azulado claro) */
+}
+
+/* ======================================= 
+   RESET BÁSICO
+   ======================================= */
+/* Elimina márgenes y paddings por defecto del navegador.
+   box-sizing: border-box hace que el padding y border no aumenten el ancho total. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======================================= 
+   ESTILOS GLOBALES DEL BODY
+   ======================================= */
+body {
+    font-family: 'Montserrat';
+    /* Aplica la fuente importada a todo el cuerpo */
+}
+
+/* ======================================= 
+   CONTENEDOR PRINCIPAL
+   ======================================= */
+/* Clase reutilizable para centrar el contenido y limitar el ancho máximo */
+.container {
+    max-width: 1200px;
+    /* Ancho máximo del contenido */
+    margin: 0 auto;
+    /* Centra horizontalmente */
+}
+
+/* ======================================= 
+   HEADER (Logo + Buscador)
+   ======================================= */
+header {
+    display: flex;
+    /* Flexbox para alinear elementos */
+    align-items: center;
+    /* Centra verticalmente */
+    justify-content: space-between;
+    /* Separa logo y formulario a los extremos */
+
+    padding: 40px 0;
+    /* Espaciado vertical */
+}
+
+/* Logo */
+.logo img {
+    width: 150px;
+    /* Ancho fijo del logo */
+}
+
+/* Formulario de búsqueda */
+header form {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+    /* Separación entre el input y el botón */
+}
+
+/* Grupo que contiene el icono y el input */
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 1px solid #555;
+    /* Borde gris */
+    padding: 15px 20px;
+    /* Espaciado interno */
+    border-radius: 25px;
+    /* Bordes redondeados (forma de píldora) */
+}
+
+/* Campo de texto */
+.form-group input {
+    font-family: inherit;
+    /* Hereda la fuente del body */
+    width: 300px;
+    /* Ancho del input */
+    border: none;
+    /* Sin borde propio */
+    outline: none;
+    /* Sin borde al hacer foco */
+    font-size: 15px;
+}
+
+/* Icono de búsqueda (lupa) */
+.icon-search {
+    width: 20px;
+    height: 20px;
+    stroke: #555;
+    /* Color del trazo del SVG */
+}
+
+/* Botón de búsqueda */
+.btn-search {
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    font-family: inherit;
+    padding: 15px 30px;
+    cursor: pointer;
+    /* Cambia el cursor a mano */
+    letter-spacing: 2px;
+    /* Espaciado entre letras */
+    background-color: var(--color-primary);
+    /* Usa variable de color */
+    color: #fff;
+    /* Texto blanco */
+}
+
+/* Efecto hover del botón */
+.btn-search:hover {
+    background-color: var(--color-primary-hover);
+    color: #000;
+    /* Texto negro al pasar el mouse */
+}
+
+/* ======================================= 
+   BOTÓN DE FILTRO
+   ======================================= */
+.container-filter {
+    display: flex;
+}
+
+.icon-filter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.icon-filter .icon {
+    width: 30px;
+    height: 30px;
+    stroke: #555;
+}
+
+/* ======================================= 
+   LISTA DE TARJETAS DE POKÉMON (INDEX)
+   ======================================= */
+.card-list-pokemon {
+    display: grid;
+    /* CSS Grid para organizar tarjetas */
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columnas de igual ancho */
+    gap: 20px;
+    /* Separación entre tarjetas */
+}
+
+/* Cada tarjeta es un enlace */
+.card-pokemon {
+    cursor: pointer;
+    text-decoration: none;
+    /* Sin subrayado */
+}
+
+/* Contenedor de la imagen */
+.card-img {
+    background-color: #f2f2f2;
+    /* Fondo gris claro */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Centra la imagen */
+    border-radius: 5px;
+    height: 250px;
+    /* Altura fija */
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Información textual de la tarjeta */
+.card-info {
+    padding: 15px;
+}
+
+.card-info h3 {
+    color: #333;
+    /* Color del nombre */
+}
+
+/* Número de Pokédex */
+.pokemon-id {
+    display: block;
+    /* Ocupa toda la línea */
+    color: #888;
+    /* Gris */
+    margin-bottom: 15px;
+}
+
+/* Contenedor de tipos */
+.card-types {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Etiquetas de tipo */
+.card-types span {
+    font-size: 12px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    color: #fff;
+    /* Texto blanco */
+}
+
+/* ======================================= 
+   COLORES DE LOS TIPOS DE POKÉMON
+   ======================================= */
+/* Cada clase aplica el color de fondo correspondiente al tipo.
+   Se usan las variables definidas en :root */
+.water {
+    background-color: var(--color-water);
+}
+
+.grass {
+    background-color: var(--color-grass);
+}
+
+.poison {
+    background-color: var(--color-poison);
+}
+
+.fire {
+    background-color: var(--color-fire);
+}
+
+.bug {
+    background-color: var(--color-bug);
+}
+
+.dragon {
+    background: var(--color-dragon);
+}
+
+/* Usa degradado */
+.flying {
+    background-color: var(--color-flying);
+}
+
+.ground {
+    background-color: var(--color-ground);
+}
+
+.steel {
+    background-color: var(--color-steel);
+}
+
+.psychic {
+    background-color: var(--color-psychic);
+}
+
+.ice {
+    background-color: var(--color-ice);
+}
+
+.ghost {
+    background-color: var(--color-ghost);
+}
+
+.normal {
+    background-color: var(--color-normal);
+}
+
+.rock {
+    background-color: var(--color-rock);
+}
+
+.electric {
+    background-color: var(--color-electric);
+}
+
+.fighting {
+    background-color: var(--color-fighting);
+}
+
+.fairy {
+    background-color: var(--color-fairy);
+}
+
+.dark {
+    background-color: var(--color-dark);
+}
+
+/* ======================================= 
+   PANEL DE FILTROS (LATERAL)
+   ======================================= */
+.container-filters {
+    display: flex;
+    justify-content: center;
+
+    position: fixed;
+    /* Fijo en la pantalla */
+    top: 0;
+    left: -300px;
+    /* Oculto a la izquierda (fuera de pantalla) */
+    width: 250px;
+
+    color: #555;
+    background-color: #f2f2f2;
+    height: 100%;
+    /* Altura completa */
+    padding-top: 140px;
+    transition: all .3s linear;
+    /* Animación suave al abrir/cerrar */
+}
+
+/* Clase que se añade con JavaScript para mostrar el panel */
+.container-filters.active {
+    left: 0;
+    /* Se desliza a la vista */
+}
+
+/* Contenedor de los checkboxes de tipos */
+.filter-by-type {
+    display: flex;
+    flex-direction: column;
+    /* Uno debajo del otro */
+
+    gap: 20px;
+}
+
+.filter-by-type span {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+/* Cada grupo de checkbox + label */
+.group-type {
+    display: flex;
+    gap: 10px;
+
+    margin-left: 15px;
+}
+
+.group-type label {
+    cursor: pointer;
+}
+
+/* ======================================= 
+   ESTILOS DE LA PÁGINA DE DETALLE (pokemon.html)
+   ======================================= */
+
+.main-pokemon {
+    display: flex;
+    flex-direction: column;
+    /* Apila las secciones verticalmente */
+    margin-bottom: 50px;
+}
+
+/* Sección superior: número, imagen e info básica */
+.header-main-pokemon {
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    /* Para posicionar el número grande de forma absoluta */
+}
+
+/* Número grande de Pokédex (ej: #1) */
+.number-pokemon {
+    position: absolute;
+    /* Se posiciona respecto al contenedor padre */
+    top: -70px;
+    left: 0;
+
+    font-size: 300px;
+    /* Muy grande, como marca de agua */
+    font-weight: 700;
+    color: var(--color-primary-hover);
+    /* Color claro para no opacar */
+}
+
+/* Contenedor de la imagen del Pokémon */
+.container-img-pokemon {
+    order: 2;
+    /* Se muestra a la derecha */
+    flex: 1;
+    /* Ocupa la mitad del espacio */
+    padding: 25px 25px 25px 0;
+}
+
+.container-img-pokemon img {
+    width: 100%;
+}
+
+/* Contenedor de la información textual */
+.container-info-pokemon {
+    display: flex;
+    flex-direction: column;
+
+    order: 1;
+    /* Se muestra a la izquierda */
+    flex: 1;
+}
+
+.container-info-pokemon h1 {
+    text-align: right;
+    /* Nombre alineado a la derecha */
+    font-size: 50px;
+}
+
+/* Fila con altura y peso */
+.info-pokemon {
+    display: flex;
+    justify-content: space-between;
+    /* Separa altura y peso */
+
+    margin-top: 20px;
+}
+
+.group-info p {
+    font-weight: 700;
+    /* Etiquetas en negrita */
+}
+
+/* ======================================= 
+   ESTADÍSTICAS (STATS)
+   ======================================= */
+.container-stats {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    /* Una estadística debajo de otra */
+    gap: 20px;
+    flex: 1;
+}
+
+/* Cada fila de estadística */
+.stat-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-group span {
+    flex: 20%;
+    /* Ocupa el 20% del ancho */
+    font-weight: 500;
+    font-size: 18px;
+}
+
+/* Barra de progreso visual */
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background-color: var(--color-primary);
+    /* Color de la barra */
+    border-radius: 10px;
+}
+*,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* Evita scroll horizontal no deseado en móviles */
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Las imágenes nunca se salen de su contenedor y mantienen proporción */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Elimina espacio extra debajo de las imágenes */
+        }
+
+        /* Header y filtro se apilan en móvil */
+        /* El header usa flexbox para alinear logo y formulario */
+        header.container {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos salten de línea si no caben */
+            align-items: center;
+            gap: 1rem; /* Separación entre logo y formulario */
+        }
+
+        /* El formulario también es flexible y ocupa el 100% en móvil */
+        header.container form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            flex: 1 1 100%; /* Crece, se encoge y base 100% */
+        }
+
+        /* El grupo de búsqueda (icono + input) se adapta */
+        header.container .form-group {
+            flex: 1 1 200px; /* Mínimo 200px, luego crece */
+            min-width: 0; /* Evita desbordamiento en flex */
+        }
+
+        /* El input de búsqueda ocupa todo el ancho disponible */
+        header.container input[type="search"] {
+            width: 100%;
+        }
+
+        /* Grid de tarjetas responsivo */
+        /* Usa CSS Grid con auto-fill: crea columnas de mínimo 220px y se adapta */
+        .card-list-pokemon {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem; /* Separación entre tarjetas */
+        }
+
+        /* Filtros en columnas adaptables */
+        /* Los checkboxes de tipos se organizan en grid */
+        .filter-by-type {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        /* En pantallas muy pequeñas, una columna */
+        /* Media query: se activa cuando el ancho es menor o igual a 480px */
+        @media (max-width: 480px) {
+            .card-list-pokemon {
+                grid-template-columns: 1fr; /* Una sola columna de tarjetas */
+            }
+
+            .filter-by-type {
+                grid-template-columns: repeat(2, 1fr); /* Dos columnas para filtros */
+            }
+        }
+
+/* =======================================
+   AJUSTES DE RESPONSIVIDAD
+   Solo adapta la distribución a cada pantalla.
+   ======================================= */
+
+/* Evita que el contenido toque los bordes o genere desbordamiento */
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-width: 0;
+}
+
+.container {
+    width: min(100% - 32px, 1200px);
+}
+
+/* Imágenes flexibles sin deformarlas */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablets y portátiles pequeños */
+@media (max-width: 1024px) {
+    header {
+        padding: 28px 0;
+        gap: 20px;
+    }
+
+    header form {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .form-group {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .form-group input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .card-list-pokemon {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .header-main-pokemon {
+        gap: 16px;
+    }
+
+    .number-pokemon {
+        font-size: clamp(150px, 24vw, 260px);
+        top: -35px;
+    }
+
+    .container-info-pokemon h1 {
+        font-size: clamp(30px, 4vw, 46px);
+        overflow-wrap: anywhere;
+    }
+
+    .container-stats {
+        gap: 28px;
+    }
+}
+
+/* Tablets verticales y teléfonos */
+@media (max-width: 768px) {
+    header.container {
+        flex-wrap: wrap;
+        padding: 24px 0;
+        gap: 18px;
+    }
+
+    .logo img {
+        width: clamp(115px, 30vw, 150px);
+    }
+
+    header.container form {
+        flex: 1 1 100%;
+        width: 100%;
+        gap: 10px;
+    }
+
+    header.container .form-group {
+        flex: 1 1 auto;
+        padding: 12px 14px;
+    }
+
+    header.container input[type="search"] {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .btn-search {
+        padding: 13px 18px;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .card-list-pokemon {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .card-img {
+        height: clamp(150px, 30vw, 220px);
+    }
+
+    .card-info {
+        padding: 12px 8px;
+    }
+
+    .card-types {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .card-types span {
+        padding: 5px 10px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .container-filters {
+        width: min(280px, 85vw);
+        max-width: 85vw;
+        padding: 110px 14px 24px;
+        overflow-y: auto;
+    }
+
+    .filter-by-type {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: start;
+        gap: 14px 8px;
+    }
+
+    .filter-by-type > span {
+        grid-column: 1 / -1;
+    }
+
+    .group-type {
+        margin-left: 0;
+        min-width: 0;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .group-type label {
+        overflow-wrap: anywhere;
+    }
+
+    /* Página de detalle del Pokémon */
+    .header-main-pokemon {
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .number-pokemon {
+        top: -20px;
+        left: 0;
+        font-size: clamp(110px, 25vw, 200px);
+    }
+
+    .container-img-pokemon {
+        flex: 1 1 45%;
+        min-width: 0;
+        padding: 20px 10px 20px 0;
+    }
+
+    .container-info-pokemon {
+        flex: 1 1 45%;
+        min-width: 0;
+    }
+
+    .container-info-pokemon h1 {
+        font-size: clamp(27px, 5vw, 40px);
+        text-align: right;
+    }
+
+    .info-pokemon {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .container-stats {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .container-stats h1 {
+        font-size: 28px;
+    }
+
+    .stats {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .stat-group {
+        gap: 10px;
+    }
+
+    .stat-group span {
+        flex: 0 0 28%;
+        min-width: 0;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .progress-bar {
+        flex: 1;
+        min-width: 0;
+        height: 22px;
+    }
+
+    .main-pokemon {
+        margin-bottom: 32px;
+    }
+}
+
+/* Teléfonos pequeños */
+@media (max-width: 480px) {
+    .container {
+        width: calc(100% - 24px);
+    }
+
+    header.container {
+        padding: 18px 0;
+    }
+
+    header.container form {
+        flex-wrap: wrap;
+    }
+
+    header.container .form-group {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .btn-search {
+        width: 100%;
+    }
+
+    .card-list-pokemon {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .card-img {
+        height: 145px;
+    }
+
+    .card-info h3 {
+        font-size: 15px;
+    }
+
+    .pokemon-id {
+        margin-bottom: 8px;
+        font-size: 12px;
+    }
+
+    .card-types span {
+        font-size: 11px;
+        padding: 4px 7px;
+    }
+
+    .container-filter {
+        width: calc(100% - 24px);
+    }
+
+    .icon-filter {
+        gap: 10px;
+    }
+
+    .header-main-pokemon {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .number-pokemon {
+        top: 0;
+        left: 0;
+        font-size: clamp(100px, 32vw, 150px);
+    }
+
+    .container-img-pokemon {
+        order: 1;
+        flex: 1 1 auto;
+        width: 100%;
+        padding: 18px 12px 0;
+    }
+
+    .container-info-pokemon {
+        order: 2;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .container-info-pokemon h1 {
+        text-align: center;
+        font-size: 34px;
+    }
+
+    .container-info-pokemon .card-types {
+        justify-content: center;
+    }
+
+    .info-pokemon {
+        justify-content: space-around;
+        margin-top: 16px;
+    }
+
+    .container-stats h1 {
+        font-size: 24px;
+    }
+
+    .stat-group {
+        gap: 8px;
+    }
+
+    .stat-group span {
+        flex-basis: 32%;
+        font-size: 12px;
+    }
+
+    .progress-bar {
+        height: 18px;
+    }
+}
+
